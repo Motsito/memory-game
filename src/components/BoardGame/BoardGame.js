@@ -80,8 +80,8 @@ export default function BoardGame() {
   };
 
   //function that will display "reversedCards" and "currentDeck", [0=index, 1=name, 2=icon]
-  const displayCards = (cardGroup) => {
-    return cardGroup.map((card) => {
+  const displayCards = () => {
+    return currentDeck.map((card, i) => {
       return (
         <button
           className={conditionalClass(card)}
@@ -89,7 +89,8 @@ export default function BoardGame() {
           id={card[1]}
           onClick={() => handleFlip(card)}
         >
-          {cardGroup === currentDeck ? <img src={card[2]} alt="" /> : "?"}
+          <img src={card[2]} alt="" />
+          <img src={reversedCards[i][2]} alt="" />
         </button>
       );
     });
@@ -116,10 +117,7 @@ export default function BoardGame() {
     <div>
       <button onClick={() => playButton()}>get cards</button>
       <SoundIcon />
-      <div>
-        <div className="gameZone">{displayCards(currentDeck)}</div>
-        <div className="gameZone">{displayCards(reversedCards)}</div>
-      </div>
+      <div className="gameZone">{displayCards()}</div>
     </div>
   );
 }
