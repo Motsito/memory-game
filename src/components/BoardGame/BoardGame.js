@@ -116,8 +116,10 @@ export default function BoardGame() {
     <div>
       <button onClick={() => playButton()}>get cards</button>
       <SoundIcon />
-      <div className="gameZone">{displayCards(currentDeck)}</div>
-      <div className="gameZone">{displayCards(reversedCards)}</div>
+      <div>
+        <div className="gameZone">{displayCards(currentDeck)}</div>
+        <div className="gameZone">{displayCards(reversedCards)}</div>
+      </div>
     </div>
   );
 }
