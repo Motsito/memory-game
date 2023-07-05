@@ -2,3 +2,12 @@
   display: grid;
   grid-template-columns: 5rem 5rem 5rem 5rem;
 }
+
+.selected {
+  pointer-events: none;
+}
+.notSelected {
+  background-color: blue;
+  color: yellow;
+  font-size: 50px;
+}

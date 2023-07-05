@@ -24,9 +24,20 @@ export default function BoardGame() {
     stockCardIcon,
   ]);
 
-  //"currentCards" let us pack the cards that are currently being played starts with a copy of reversed cards, but later on will have
+  //"currentDeck" let us pack the cards that are currently being played starts with a copy of reversed cards, but later on will have
   //data for the playable cards, this will change when pressing "play"
-  const [currentCards, setCurrentCards] = useState(reversedCards);
+  const [currentDeck, setCurrentDeck] = useState(reversedCards);
+
+  //this state will allow us to know wich cards have been flipped
+  const [flippedCards, setFlippedCards] = useState([]);
+  //this state will allow us to keep the dupla in control
+  const [couple, setCouple] = useState(undefined);
+
+  const conditionalClass = (card) =>
+    //if card exist in flipped cards, or card is equal to couple, they are selected
+    flippedCards.indexOf(card) !== -1 || card === couple
+      ? "selected gameSlot"
+      : "notSelected gameSlot";
 
   // function that will execute when pressing "play" and "restart"
   const getNewCards = () => {
@@ -68,12 +79,17 @@ export default function BoardGame() {
     return gameCards;
   };
 
-  //function that will display "reversedCards" and "currentCards", [0=index, 1=name, 2=icon]
+  //function that will display "reversedCards" and "currentDeck", [0=index, 1=name, 2=icon]
   const displayCards = (cardGroup) => {
     return cardGroup.map((card) => {
       return (
-        <button className="gameSlot" key={card[0]} id={card[1]}>
-          <img src={card[2]} alt="" />
+        <button
+          className={conditionalClass(card)}
+          key={card[0]}
+          id={card[1]}
+          onClick={() => handleFlip(card)}
+        >
+          {cardGroup === currentDeck ? <img src={card[2]} alt="" /> : "?"}
         </button>
       );
     });
@@ -81,15 +97,26 @@ export default function BoardGame() {
 
   //function that executes getNewcards function
   const playButton = () => {
-    setCurrentCards(getNewCards());
+    setCurrentDeck(getNewCards());
   };
 
-  getNewCards();
+  const handleFlip = (card) => {
+    if (couple === undefined) {
+      return setCouple(card);
+    } else if (couple[1] === card[1]) {
+      let winners = [...flippedCards, couple, card];
+      setFlippedCards(winners);
+      setCouple(undefined);
+    } else {
+      console.log("wrong");
+      setCouple(undefined);
+    }
+  };
   return (
     <div>
       <button onClick={() => playButton()}>get cards</button>
       <SoundIcon />
-      <div className="gameZone">{displayCards(currentCards)}</div>
+      <div className="gameZone">{displayCards(currentDeck)}</div>
       <div className="gameZone">{displayCards(reversedCards)}</div>
     </div>
   );
