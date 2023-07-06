@@ -5,6 +5,7 @@ export default function Timer({ seconds, setSeconds, play, winLose }) {
   const timerId = useRef();
 
   useEffect(() => {
+    //avoids counter start if play is not true
     if (play) {
       timerId.current = setInterval(() => {
         setSeconds((prev) => prev - 1);
@@ -13,6 +14,7 @@ export default function Timer({ seconds, setSeconds, play, winLose }) {
     }
   }, [play]);
 
+  //stops counter at 0
   useEffect(() => {
     if (seconds <= 0) {
       clearInterval(timerId.current);

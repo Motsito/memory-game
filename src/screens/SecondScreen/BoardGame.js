@@ -40,25 +40,31 @@ export default function BoardGame() {
   //"currentDeck" let us pack the cards that are currently being played starts with a copy of reversed cards, but later on will have
   //data for the playable cards, this will change when pressing "play"
   const [currentDeck, setCurrentDeck] = useState(reversedCards);
+  //deck status specifies the state of each card in the deck
   const [deckStatus, setDeckStatus] = useState(baseStatus);
+  //if modal is true, modal shows
   const [modalStatus, setModalStatus] = useState(false);
+  //alters depending if the dupla belongs to each other
   const [modalText, setModalText] = useState("");
   //this state will allow us to know wich cards have been flipped
   const [flippedCards, setFlippedCards] = useState([]);
   //this state will allow us to keep the dupla in control
   const [couple, setCouple] = useState(undefined);
-
-  const [seconds, setSeconds] = useState(60);
+  //sets the timer
+  const [seconds, setSeconds] = useState(30);
+  //starts the game
   const [play, setPlay] = useState(false);
 
   //winner decider
   useEffect(() => {
+    //if every card is flipped, we have a winner
     if (flippedCards.length >= 8) {
       setPlay(false);
-      setWinLose("Congratz!!! You Won!");
+      setWinLose("You Won!!🎉🎉");
       setTimeout(() => {
         setCurrentScreen("end");
       }, 500);
+      //if the timer reaches 0, we lose
     } else if (seconds <= 0) {
       setPlay(false);
       setWinLose("You Lost :(");
@@ -68,16 +74,13 @@ export default function BoardGame() {
     }
   }, [seconds, flippedCards]);
 
-  useEffect(() => {
-    if (modalStatus) {
-    }
-  }, [modalStatus]);
-
+  //gets the modal to be shown and states the text to be displayed
   const handleModal = (text) => {
     setModalStatus(true);
     setModalText(text);
   };
 
+  //class condition for the play button to change depending the game state
   const playCondition = play
     ? "unclickable game__button started"
     : "game__button";
@@ -122,7 +125,7 @@ export default function BoardGame() {
     return gameCards;
   };
 
-  //function that will display "reversedCards" and "currentDeck", [0=index, 1=name, 2=icon]
+  //function that will display the deck of cards
   const displayCards = () => {
     return currentDeck.map((card, i) => {
       return (
@@ -150,12 +153,16 @@ export default function BoardGame() {
 
   //toSpliced, allows me to return a copy of an array with one or multiples changes the format is: toSpliced("start","deleteCount", "item to insert")
   const changeCardStatus = (desiredState, card, boolean) => {
+    //current Status gets established as the new state of cards, replacing the card that has been clicked
     let currentStatus = deckStatus.toSpliced(card[0], 1, desiredState);
+
+    //makes the cards to be unclickable when animation is happening
     if (boolean) {
       let currentUnclickableStatus = currentStatus.map((status) => {
         return status + " unclickable";
       });
       setDeckStatus(currentUnclickableStatus);
+      //timeouts allows cards to be clicked
       setTimeout(() => {
         setDeckStatus(currentStatus);
       }, 1000);
@@ -174,34 +181,23 @@ export default function BoardGame() {
   };
 
   const handleFlip = (card) => {
-    console.log(card, deckStatus);
     if (couple === undefined) {
       //changin card status to selected
       changeCardStatus("selected card", card, true);
       return setCouple(card);
     } else if (couple[1] === card[1]) {
+      //dupla is correct and winners gets introduced in flipped cards
       let winners = [...flippedCards, couple[0], card[0]];
       handleModal("nice! it's a match");
       changeCardStatus("selected card", card, true);
       setFlippedCards(winners);
       setCouple(undefined);
     } else {
+      //dupla is not correct
       handleModal("sorry, but this is not a match");
       changeCardStatus("not-selected card", card, false);
       setCouple(undefined);
     }
-  };
-
-  const handlePlayAgain = () => {
-    setCurrentDeck(reversedCards);
-    setModalText("");
-    setFlippedCards([]);
-    setCouple(undefined);
-    setDeckStatus(playableStatus);
-    setModalStatus(false);
-    setSeconds(30);
-    setPlay(false);
-    setWinLose(undefined);
   };
 
   return (

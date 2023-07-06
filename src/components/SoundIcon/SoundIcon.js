@@ -18,7 +18,6 @@ export default function SoundIcon({
   const [sound, setSound] = useState(false);
   // setting the music as a state was needed in order to play the music propertly
   const [backgroundMusic, setBackgroundMusic] = useState(new Audio(Music));
-
   const matchSound = new Audio(Match);
   const notMatchSound = new Audio(notMatch);
   const tickingSound = new Audio(ticking);
@@ -60,11 +59,6 @@ export default function SoundIcon({
       setSound(false);
     }
   }, [seconds]);
-
-  //gamestoper
-  useEffect(() => {
-    setSound(false);
-  }, [winLose]);
 
   return (
     <div className="soundIcon">

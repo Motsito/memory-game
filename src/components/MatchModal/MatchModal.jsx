@@ -4,9 +4,11 @@ import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 
 export default function MatchModal({ modalStatus, modalText, setModalStatus }) {
+  //function that closes modal
   const handleClose = () => {
     setModalStatus(false);
   };
+
   return (
     <>
       <Modal show={modalStatus} onHide={handleClose}>
