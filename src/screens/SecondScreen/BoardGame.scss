@@ -1,0 +1,86 @@
+.wallpaper {
+  width: 100vw;
+  height: 100vh;
+  background-color: rgb(59, 149, 219);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .white-area {
+    width: 470px;
+    height: 400px;
+    padding-top: 80px;
+    padding-right: 30px;
+    display: flex;
+    justify-content: center;
+    background-color: white;
+    border-radius: 30px;
+    .game {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .game__button {
+      font-size: 18px;
+      font-weight: 600;
+      width: 50%;
+      margin-top: 12px;
+    }
+    .started {
+      background-color: rgb(166, 60, 227);
+      border: transparent;
+      pointer-events: none;
+    }
+    .game__area {
+      display: grid;
+      grid-template-columns: repeat(4, 5rem);
+      grid-template-rows: repeat(2, 8rem);
+      gap: 5px;
+      .card {
+        perspective: 15rem;
+        position: relative;
+        padding: 0;
+        border-radius: 20px;
+        border: transparent;
+        img {
+          width: 60px;
+        }
+        .card__side {
+          background-color: rgb(42, 79, 201);
+          border-radius: 17px;
+          padding: 0;
+          display: grid;
+          place-items: center;
+          font-size: 50px;
+          color: yellow;
+          transition: all 1.5s ease;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          backface-visibility: hidden;
+          &-shape {
+            position: absolute;
+            background-color: green;
+            transform: rotateY(180deg);
+          }
+        }
+        &.selected {
+          .card__side {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            &-back {
+              transform: rotateY(-180deg);
+            }
+            &-shape {
+              transform: rotateY(0deg);
+            }
+          }
+        }
+      }
+      .unclickable {
+        pointer-events: none;
+      }
+    }
+  }
+}

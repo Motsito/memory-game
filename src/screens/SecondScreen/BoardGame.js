@@ -1,15 +1,21 @@
-import React, { useState } from "react";
-import SoundIcon from "../SoundIcon/SoundIcon";
+import React, { useContext, useEffect, useState } from "react";
+import SoundIcon from "../../components/SoundIcon/SoundIcon";
 import comet from "../../assets/cards/comet.svg";
 import moon from "../../assets/cards/moon.svg";
 import star from "../../assets/cards/star.svg";
 import sun from "../../assets/cards/sun.svg";
 import stockCardIcon from "../../assets/icons/logo.svg";
+import MatchModal from "../../components/MatchModal/MatchModal";
+import Timer from "../../components/Timer/Timer";
+import Context from "../../components/Context/Context";
+import Button from "react-bootstrap/Button";
 import "./BoardGame.scss";
-import MatchModal from "../MatchModal/MatchModal";
-import Timer from "../Timer/Timer";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 export default function BoardGame() {
+  const { winLose, setWinLose, setCurrentScreen, sound, setSound } =
+    useContext(Context);
+
   //begining with setting up cards and their proper card numbers
   const cardNames = [
     ["comet", comet],
@@ -27,8 +33,9 @@ export default function BoardGame() {
   ]);
   const baseStatus = Array.from(
     { length: 8 },
-    (_, index) => "not-selected card"
+    (_, index) => "unclickable card"
   );
+  const playableStatus = Array.from({ length: 8 }, (_, index) => "card");
 
   //"currentDeck" let us pack the cards that are currently being played starts with a copy of reversed cards, but later on will have
   //data for the playable cards, this will change when pressing "play"
@@ -36,22 +43,44 @@ export default function BoardGame() {
   const [deckStatus, setDeckStatus] = useState(baseStatus);
   const [modalStatus, setModalStatus] = useState(false);
   const [modalText, setModalText] = useState("");
+  //this state will allow us to know wich cards have been flipped
+  const [flippedCards, setFlippedCards] = useState([]);
+  //this state will allow us to keep the dupla in control
+  const [couple, setCouple] = useState(undefined);
+
+  const [seconds, setSeconds] = useState(60);
+  const [play, setPlay] = useState(false);
+
+  //winner decider
+  useEffect(() => {
+    if (flippedCards.length >= 8) {
+      setPlay(false);
+      setWinLose("Congratz!!! You Won!");
+      setTimeout(() => {
+        setCurrentScreen("end");
+      }, 500);
+    } else if (seconds <= 0) {
+      setPlay(false);
+      setWinLose("You Lost :(");
+      setTimeout(() => {
+        setCurrentScreen("end");
+      }, 200);
+    }
+  }, [seconds, flippedCards]);
+
+  useEffect(() => {
+    if (modalStatus) {
+    }
+  }, [modalStatus]);
 
   const handleModal = (text) => {
     setModalStatus(true);
     setModalText(text);
   };
 
-  //this state will allow us to know wich cards have been flipped
-  const [flippedCards, setFlippedCards] = useState([]);
-  //this state will allow us to keep the dupla in control
-  const [couple, setCouple] = useState(undefined);
-
-  // const conditionalClass = (card) =>
-  //   //if card exist in flipped cards, or card is equal to couple, they are selected
-  //   flippedCards.indexOf(card) !== -1 || card === couple
-  //     ? "selected card"
-  //     : "not-selected card";
+  const playCondition = play
+    ? "unclickable game__button started"
+    : "game__button";
 
   // function that will execute when pressing "play" and "restart"
   const getNewCards = () => {
@@ -97,7 +126,7 @@ export default function BoardGame() {
   const displayCards = () => {
     return currentDeck.map((card, i) => {
       return (
-        <button
+        <Button
           className={deckStatus[i]}
           key={card[0]}
           id={card[1]}
@@ -107,13 +136,15 @@ export default function BoardGame() {
           <div className="card__side card__side-shape">
             <img src={card[2]} alt="" />
           </div>
-        </button>
+        </Button>
       );
     });
   };
 
   //function that executes getNewcards function
   const playButton = () => {
+    setDeckStatus(playableStatus);
+    setPlay(true);
     setCurrentDeck(getNewCards());
   };
 
@@ -138,11 +169,12 @@ export default function BoardGame() {
           }
         });
         setDeckStatus(currentStatus);
-      }, 50);
+      }, 500);
     }
   };
 
   const handleFlip = (card) => {
+    console.log(card, deckStatus);
     if (couple === undefined) {
       //changin card status to selected
       changeCardStatus("selected card", card, true);
@@ -159,6 +191,19 @@ export default function BoardGame() {
       setCouple(undefined);
     }
   };
+
+  const handlePlayAgain = () => {
+    setCurrentDeck(reversedCards);
+    setModalText("");
+    setFlippedCards([]);
+    setCouple(undefined);
+    setDeckStatus(playableStatus);
+    setModalStatus(false);
+    setSeconds(30);
+    setPlay(false);
+    setWinLose(undefined);
+  };
+
   return (
     <div>
       <MatchModal
@@ -166,13 +211,28 @@ export default function BoardGame() {
         modalText={modalText}
         setModalStatus={setModalStatus}
       />
-      <div className="backGameArea">
-        <Timer />
-        <SoundIcon />
-        <div className="whiteArea">
-          <div>
-            <div className="gameArea">{displayCards()}</div>
-            <button onClick={() => playButton()}>play!</button>
+      <div className="wallpaper">
+        <div className="white-area">
+          <Timer
+            seconds={seconds}
+            setSeconds={setSeconds}
+            play={play}
+            winLose={winLose}
+          />
+          <SoundIcon
+            modalStatus={modalStatus}
+            modalText={modalText}
+            seconds={seconds}
+            play={play}
+            winLose={winLose}
+            sound={sound}
+            setSound={setSound}
+          />
+          <div className="game">
+            <div className="game__area">{displayCards()}</div>
+            <Button className={playCondition} onClick={() => playButton()}>
+              play!
+            </Button>
           </div>
         </div>
       </div>
