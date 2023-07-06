@@ -165,7 +165,7 @@ export default function BoardGame() {
       //timeouts allows cards to be clicked
       setTimeout(() => {
         setDeckStatus(currentStatus);
-      }, 1000);
+      }, 300);
     } else {
       currentStatus = deckStatus.toSpliced(card[0], 1, "selected card");
       setDeckStatus(currentStatus);
