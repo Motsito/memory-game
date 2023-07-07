@@ -146,7 +146,7 @@ export default function BoardGame() {
     console.log({ currentDeck });
     if (couple === undefined) {
       //changin card status to selected
-      changeCardStatus("selected card", card, true);
+      changeCardStatus("unclickable selected card", card, true);
       return setCouple(card);
     } else if (couple[1] === card[1]) {
       //dupla is correct and winners gets introduced in flipped cards
