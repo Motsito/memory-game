@@ -4,8 +4,13 @@ import "./Start.scss";
 import Context from "../../components/Context/Context";
 
 export default function Start() {
-  const { currentScreen, setCurrentScreen } = useContext(Context);
+  const { currentScreen, setCurrentScreen, setPlay } = useContext(Context);
   const [animate, setAnimate] = useState(true);
+
+  const gameStart = () => {
+    setPlay(true);
+    setCurrentScreen("game");
+  };
 
   return (
     <div className="initial-view-container">
@@ -16,7 +21,7 @@ export default function Start() {
         <button
           className={`start-button ${animate ? "animate" : ""}`}
           onMouseEnter={() => setAnimate(false)}
-          onClick={() => setCurrentScreen("game")}
+          onClick={() => gameStart()}
         >
           Start
         </button>
