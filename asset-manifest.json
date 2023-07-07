@@ -1,26 +1,34 @@
 {
   "files": {
-    "main.css": "/memory-game/static/css/main.0f5831aa.css",
-    "main.js": "/memory-game/static/js/main.95dda69d.js",
+    "main.css": "/memory-game/static/css/main.e6f09f3a.css",
+    "main.js": "/memory-game/static/js/main.b7d16a56.js",
     "static/js/787.69b12325.chunk.js": "/memory-game/static/js/787.69b12325.chunk.js",
     "static/media/background.mp3": "/memory-game/static/media/background.32363922a3cdeddd3bf5.mp3",
     "static/media/incorrect.mp3": "/memory-game/static/media/incorrect.7354fd127dd80f8249ac.mp3",
     "static/media/ticking.mp3": "/memory-game/static/media/ticking.fb05f29343609290dc74.mp3",
     "static/media/correct.mp3": "/memory-game/static/media/correct.8ac0c72c2d7fa8a130f7.mp3",
-    "static/media/star.svg": "/memory-game/static/media/star.b7a332db7fb38494d05275acbee67921.svg",
-    "static/media/comet.svg": "/memory-game/static/media/comet.d0d0bf56affefd4b6d905dbf7b24d6f2.svg",
     "static/media/logo.svg": "/memory-game/static/media/logo.49ef673e924f8649b0754599cfbb03ca.svg",
-    "static/media/moon.svg": "/memory-game/static/media/moon.0f9b2e9c3b663b4b4faab3bf4446ec82.svg",
-    "static/media/sun.svg": "/memory-game/static/media/sun.04a72ae949bab08e2f81e6f21f3ffdcb.svg",
+    "static/media/jedi-solid.svg": "/memory-game/static/media/jedi-solid.0e5395233d9343ffbb988470ec1d93ac.svg",
+    "static/media/user-astronaut-solid.svg": "/memory-game/static/media/user-astronaut-solid.3dca3e4e86c7e522c15374a0e9ec2bba.svg",
+    "static/media/wand-magic-sparkles-solid.svg": "/memory-game/static/media/wand-magic-sparkles-solid.225ef6c5475dcd0618880f0e4b8c5948.svg",
+    "static/media/face-grin-stars-solid.svg": "/memory-game/static/media/face-grin-stars-solid.1db07d2819014629c1c189a02b26a96a.svg",
+    "static/media/umbrella-solid.svg": "/memory-game/static/media/umbrella-solid.72a8feebd657e91e29cddfb69683b993.svg",
+    "static/media/hand-spock-solid.svg": "/memory-game/static/media/hand-spock-solid.21d2e91dc58e872a4156d72c6950e098.svg",
+    "static/media/sun-solid.svg": "/memory-game/static/media/sun-solid.8d2535ddc1a148f23d3b91b293707685.svg",
+    "static/media/chess-knight-solid.svg": "/memory-game/static/media/chess-knight-solid.cd31902642a5ce82656cd74d2c12b676.svg",
+    "static/media/person-military-pointing-solid.svg": "/memory-game/static/media/person-military-pointing-solid.004f8cc634d57e76af34906794711aae.svg",
+    "static/media/guitar-solid.svg": "/memory-game/static/media/guitar-solid.34718ab911b2b9d389e92447698f766b.svg",
     "index.html": "/memory-game/index.html",
+    "static/media/meteor-solid.svg": "/memory-game/static/media/meteor-solid.12846df1791dfed8bd304573ea64be59.svg",
+    "static/media/shop-solid.svg": "/memory-game/static/media/shop-solid.ee14334fe6a679d3824e891f20072072.svg",
     "static/media/sound--on.svg": "/memory-game/static/media/sound--on.557eb702d9f8e422088209d89f109a4a.svg",
     "static/media/sound--off.svg": "/memory-game/static/media/sound--off.00f0ad8c16d7d216aac8429b1c3bec61.svg",
-    "main.0f5831aa.css.map": "/memory-game/static/css/main.0f5831aa.css.map",
-    "main.95dda69d.js.map": "/memory-game/static/js/main.95dda69d.js.map",
+    "main.e6f09f3a.css.map": "/memory-game/static/css/main.e6f09f3a.css.map",
+    "main.b7d16a56.js.map": "/memory-game/static/js/main.b7d16a56.js.map",
     "787.69b12325.chunk.js.map": "/memory-game/static/js/787.69b12325.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.0f5831aa.css",
-    "static/js/main.95dda69d.js"
+    "static/css/main.e6f09f3a.css",
+    "static/js/main.b7d16a56.js"
   ]
 }
