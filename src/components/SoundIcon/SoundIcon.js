@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./SoundStyles.scss";
 import SoundOn from "../../assets/icons/sound--on.svg";
 import SoundOff from "../../assets/icons/sound--off.svg";
@@ -6,14 +6,9 @@ import Music from "../../assets/sounds/background.mp3";
 import Match from "../../assets/sounds/correct.mp3";
 import notMatch from "../../assets/sounds/incorrect.mp3";
 import ticking from "../../assets/sounds/ticking.mp3";
+import Context from "../Context/Context.jsx";
 
-export default function SoundIcon({
-  modalStatus,
-  modalText,
-  seconds,
-  play,
-  winLose,
-}) {
+export default function SoundIcon({ modalStatus, modalText, play }) {
   // "sound" will allow us to manipulate the background music status in the interaction
   const [sound, setSound] = useState(false);
   // setting the music as a state was needed in order to play the music propertly
@@ -21,6 +16,7 @@ export default function SoundIcon({
   const matchSound = new Audio(Match);
   const notMatchSound = new Audio(notMatch);
   const tickingSound = new Audio(ticking);
+  const { seconds } = useContext(Context);
 
   // this use effect allows "sound" to be the key for the component, since "soundIcon" return, works with a condition, if "true" icon changes and music starts playing
 

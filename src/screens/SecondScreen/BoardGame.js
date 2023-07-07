@@ -21,15 +21,8 @@ import "./BoardGame.scss";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 export default function BoardGame() {
-  const {
-    winLose,
-    setWinLose,
-    setCurrentScreen,
-    sound,
-    setSound,
-    play,
-    setPlay,
-  } = useContext(Context);
+  const { winLose, setWinLose, setCurrentScreen, sound, setSound } =
+    useContext(Context);
 
   //begining with setting up cards and their proper card numbers
 
@@ -74,8 +67,8 @@ export default function BoardGame() {
   const [flippedCards, setFlippedCards] = useState([]);
   //this state will allow us to keep the dupla in control
   const [couple, setCouple] = useState(undefined);
-  //sets the timer
-  const [seconds, setSeconds] = useState(60);
+  const [play, setPlay] = useState(false);
+  const [seconds, setSeconds] = useState(30);
 
   //winner decider
   useEffect(() => {
@@ -97,11 +90,10 @@ export default function BoardGame() {
   }, [seconds, flippedCards]);
 
   useEffect(() => {
-    if (play) {
-      setDeckStatus(playableStatus);
-      setCurrentDeck(getNewCards());
-    }
-  }, [play]);
+    setPlay(true);
+    setDeckStatus(playableStatus);
+    setCurrentDeck(getNewCards());
+  }, []);
 
   //gets the modal to be shown and states the text to be displayed
   const handleModal = (text) => {
@@ -228,16 +220,10 @@ export default function BoardGame() {
       />
       <div className="wallpaper">
         <div className="white-area">
-          <Timer
-            seconds={seconds}
-            setSeconds={setSeconds}
-            play={play}
-            winLose={winLose}
-          />
+          <Timer seconds={seconds} setSeconds={setSeconds} play={play} />
           <SoundIcon
             modalStatus={modalStatus}
             modalText={modalText}
-            seconds={seconds}
             play={play}
             winLose={winLose}
             sound={sound}

@@ -1,11 +1,8 @@
-import React, { useContext, useEffect, useRef } from "react";
-import Context from "../Context/Context.jsx";
+import React, { useEffect, useRef } from "react";
 import "./timer.scss";
 
-export default function Timer({ seconds, setSeconds, winLose }) {
+export default function Timer({ seconds, setSeconds, play, winLose }) {
   const timerId = useRef();
-
-  const { play } = useContext(Context);
 
   useEffect(() => {
     //avoids counter start if play is not true

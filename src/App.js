@@ -7,7 +7,6 @@ import End from "./screens/ThirdScreen/End.jsx";
 function App() {
   const [currentScreen, setCurrentScreen] = useState(undefined);
   const [winLose, setWinLose] = useState(undefined);
-  const [play, setPlay] = useState(false);
 
   return (
     <Context.Provider
@@ -16,8 +15,6 @@ function App() {
         setCurrentScreen,
         winLose,
         setWinLose,
-        play,
-        setPlay,
       }}
     >
       {currentScreen === "end" ? (
